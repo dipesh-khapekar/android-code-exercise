@@ -7,7 +7,10 @@ import android.view.MenuInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.widget.SearchView
+import androidx.core.content.ContextCompat
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.slack.exercise.R
 import com.slack.exercise.databinding.FragmentUserSearchBinding
 import com.slack.exercise.model.UserSearchResult
@@ -89,7 +92,14 @@ class UserSearchFragment : DaggerFragment(), UserSearchContract.View {
       layoutManager = LinearLayoutManager(activity).apply {
         orientation = LinearLayoutManager.VERTICAL
       }
+      setItemSpacing(DividerItemDecoration.VERTICAL, R.drawable.list_item_divider_decoration)
       setHasFixedSize(true)
     }
+  }
+
+  fun RecyclerView.setItemSpacing(direction: Int, element_id: Int) {
+    val itemDecoration = DividerItemDecoration(context, direction)
+    itemDecoration.setDrawable(ContextCompat.getDrawable(context, element_id)!!)
+    this.addItemDecoration(itemDecoration)
   }
 }
